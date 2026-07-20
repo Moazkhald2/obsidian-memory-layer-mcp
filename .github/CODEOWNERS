@@ -1,0 +1,8 @@
+# Default owner for everything
+* @honam867
+
+# Source code
+src/ @honam867
+
+# CI/CD and config
+.github/ @honam867
