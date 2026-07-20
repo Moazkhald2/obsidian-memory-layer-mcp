@@ -1,0 +1,25 @@
+name: SLSA & Artifact Signing
+
+on:
+  push:
+    tags: [v*]
+
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - run: npm pack
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: '*.tgz'
